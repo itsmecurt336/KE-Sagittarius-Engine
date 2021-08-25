@@ -23,7 +23,7 @@ class Main extends Sprite
 	var initialState:Class<FlxState> = TitleState; // The FlxState the game starts with.
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	var framerate:Int = 120; // How many frames per second the game should run at.
-	var skipSplash:Bool = false; // Whether to skip the flixel splash screen that appears in release mode.
+	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 
 	public static var watermarks = true; // Whether to put Kade Engine literally anywhere
@@ -32,7 +32,8 @@ class Main extends Sprite
 
 	public static function main():Void
 	{
-		// quick checks
+
+		// quick checks 
 
 		Lib.current.addChild(new Main());
 	}
@@ -91,10 +92,10 @@ class Main extends Sprite
 		#if desktop
 		DiscordClient.initialize();
 
-		Application.current.onExit.add(function(exitCode)
-		{
+		Application.current.onExit.add (function (exitCode) {
 			DiscordClient.shutdown();
-		});
+		 });
+		 
 		#end
 
 		#if !mobile
@@ -108,8 +109,7 @@ class Main extends Sprite
 
 	var fpsCounter:FPS;
 
-	public function toggleFPS(fpsEnabled:Bool):Void
-	{
+	public function toggleFPS(fpsEnabled:Bool):Void {
 		fpsCounter.visible = fpsEnabled;
 	}
 
