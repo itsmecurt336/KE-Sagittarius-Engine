@@ -898,7 +898,6 @@ class PlayState extends MusicBeatState
 			nameofSong.scorllFactor.set();
 			nameofSong.screenCenter(X);
 			add(nameofSong);
-			add(nameofSong);
 			
 
 		if (PlayStateChangeables.useDownscroll)
