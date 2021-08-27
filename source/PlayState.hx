@@ -202,6 +202,7 @@ class PlayState extends MusicBeatState
 	var currentFrames:Int = 0;
 	var idleToBeat:Bool = false; // change if bf and dad would idle to the beat of the song
 	var idleBeat:Int = 2; // how frequently bf and dad would play their idle animation(1 - every beat, 2 - every 2 beats and so on)
+	var nameofSong:String = "";
 
 	public var dialogue:Array<String> = ['dad:blah blah blah', 'bf:coolswag'];
 
@@ -218,6 +219,8 @@ class PlayState extends MusicBeatState
 	var talking:Bool = true;
 
 	public var songScore:Int = 0;
+	
+	public static var healthPercent:Float = 1;
 
 	var songScoreDef:Int = 0;
 	var scoreTxt:FlxText;
@@ -831,6 +834,21 @@ class PlayState extends MusicBeatState
 			songPosBar.scrollFactor.set();
 			songPosBar.createFilledBar(FlxColor.GRAY, FlxColor.LIME);
 			add(songPosBar);
+			
+			var songName = new FlxText(songPosBG.x
+			+ (songPosBG.width / 2)
+			- (SONG.song.length * 5), songPosBG.y, 0,
+			SONG.song
+			+ " - "
+			+ CoolUtil.difficultyFromInt(storyDifficulty), 16);
+			songName.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			songName.scrollFactor.set();
+			add(songName);
+			songName.cameras = [camHUD];
+		if (PlayStateChangeables.useDownscroll)
+			songName.y -= 3;
+
+
 		}
 
 		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('healthBar'));
@@ -839,19 +857,6 @@ class PlayState extends MusicBeatState
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
 		add(healthBarBG);
-
-		var songName = new FlxText(songPosBG.x
-			+ (songPosBG.width / 2)
-			- (SONG.song.length * 5), songPosBG.y, 0,
-			SONG.song
-			+ " - "
-			+ CoolUtil.difficultyFromInt(storyDifficulty), 16);
-		if (PlayStateChangeables.useDownscroll)
-			songName.y -= 3;
-		songName.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		songName.scrollFactor.set();
-		add(songName);
-		songName.cameras = [camHUD];
 
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'health', 0, 2);
@@ -882,10 +887,19 @@ class PlayState extends MusicBeatState
 		add(healthBar);
 
 		// Add Kade Engine watermark
-		kadeEngineWatermark = new FlxText(4, healthBarBG.y + 50, 0, (Main.watermarks ? "SagiEngine " + MainMenuState.kadeEngineVer : ""), 16);
+		kadeEngineWatermark = new FlxText(4, healthBarBG.y + 50, 0, (Main.watermarks ? "SE " + MainMenuState.kadeEngineVer : ""), 16);
 		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		kadeEngineWatermark.scrollFactor.set();
 		add(kadeEngineWatermark);
+		
+		if (FlxG.save.data.songPosition == false)
+			nameofSong = new FlxText(4, 0, 0, SONG.Song + " (" + CoolUtil.difficultyFromInt(storyDifficulty) + ")", 16);
+			nameofSong.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle, FlxColor.BLACK);
+			nameofSong.scorllfactor.set();
+			nameofSong.screenCenter(X);
+			add(nameofSong);
+			add(nameofSong);
+			
 
 		if (PlayStateChangeables.useDownscroll)
 			kadeEngineWatermark.y = FlxG.height * 0.9 + 45;
