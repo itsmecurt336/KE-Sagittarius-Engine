@@ -202,7 +202,7 @@ class PlayState extends MusicBeatState
 	var currentFrames:Int = 0;
 	var idleToBeat:Bool = false; // change if bf and dad would idle to the beat of the song
 	var idleBeat:Int = 2; // how frequently bf and dad would play their idle animation(1 - every beat, 2 - every 2 beats and so on)
-	var nameofSong:String = "";
+	var nameofSong:FlxText;
 
 	public var dialogue:Array<String> = ['dad:blah blah blah', 'bf:coolswag'];
 
@@ -893,9 +893,9 @@ class PlayState extends MusicBeatState
 		add(kadeEngineWatermark);
 		
 		if (FlxG.save.data.songPosition == false)
-			nameofSong = new FlxText(4, 0, 0, SONG.Song + " (" + CoolUtil.difficultyFromInt(storyDifficulty) + ")", 16);
-			nameofSong.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle, FlxColor.BLACK);
-			nameofSong.scorllfactor.set();
+			nameofSong = new FlxText(4, 0, 0, SONG.song + " (" + CoolUtil.difficultyFromInt(storyDifficulty) + ")", 16);
+			nameofSong.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			nameofSong.scorllFactor.set();
 			nameofSong.screenCenter(X);
 			add(nameofSong);
 			add(nameofSong);
