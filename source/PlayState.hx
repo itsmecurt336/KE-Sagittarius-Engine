@@ -893,9 +893,9 @@ class PlayState extends MusicBeatState
 		add(kadeEngineWatermark);
 		
 		if (FlxG.save.data.songPosition == false)
-			nameofSong = new FlxText(4, 0, 0, SONG.song + " (" + CoolUtil.difficultyFromInt(storyDifficulty) + ")", 16);
+			nameofSong = new FlxText(4, 10, 0, SONG.song + " (" + CoolUtil.difficultyFromInt(storyDifficulty) + ")", 16);
 			nameofSong.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			nameofSong.scorllFactor.set();
+			nameofSong.scrollFactor.set(); // Note to self: check your edits and make sure that lime is able to build windows before committing to stablefaolkfokaefoqawr
 			nameofSong.screenCenter(X);
 			add(nameofSong);
 			
