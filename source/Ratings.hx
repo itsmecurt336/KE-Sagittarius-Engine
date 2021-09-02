@@ -13,11 +13,15 @@ class Ratings
         else if (PlayState.misses == 0 && PlayState.bads == 0 && PlayState.shits == 0 && PlayState.goods >= 1) // Good Full Combo (Nothing but Goods & Sicks)
             ranking = "(GFC)";
         else if (PlayState.misses == 0) // Regular FC
-            ranking = "(FC)";
+            ranking = "(-FC)";
         else if (PlayState.misses < 10) // Single Digit Combo Breaks
-            ranking = "(SDCB)";
-        else
-            ranking = "(Clear)";
+            ranking = "(SDM)";
+        else if (PlayState.misses < 100)
+            ranking = "(DDM)";
+		else if (PlayState.misses < 1000)
+			ranking = "(TDM)";
+		else if (PlayState.misses < 10000)
+			ranking = "(CLR)";
 
         // WIFE TIME :)))) (based on Wife3)
 
@@ -50,27 +54,27 @@ class Ratings
                     case 0:
                         ranking += " AAAAA";
                     case 1:
-                        ranking += " AAAA:";
+                        ranking += " AAAA=";
                     case 2:
-                        ranking += " AAAA.";
+                        ranking += " AAAA-";
                     case 3:
                         ranking += " AAAA";
                     case 4:
-                        ranking += " AAA:";
+                        ranking += " AAA=";
                     case 5:
-                        ranking += " AAA.";
+                        ranking += " AAA-";
                     case 6:
                         ranking += " AAA";
                     case 7:
-                        ranking += " AA:";
+                        ranking += " AA=";
                     case 8:
-                        ranking += " AA.";
+                        ranking += " AA-";
                     case 9:
                         ranking += " AA";
                     case 10:
-                        ranking += " A:";
+                        ranking += " A=";
                     case 11:
-                        ranking += " A.";
+                        ranking += " A-";
                     case 12:
                         ranking += " A";
                     case 13:
@@ -84,11 +88,8 @@ class Ratings
             }
         }
 
-        if (accuracy == 0)
+        if (accuracy == 0 && PlayState.misses == 0 && PlayState.bads == 0 && PlayState.shits == 0 && PlayState.goods == 0 && PlayState.sicks == 0)
             ranking = "N/A";
-		else if(FlxG.save.data.botplay && !PlayState.loadRep)
-			ranking = "BotPlay";
-
         return ranking;
     }
     
@@ -126,8 +127,8 @@ class Ratings
          "NPS: " + nps + " (Max " + maxNPS + ")" + (!PlayStateChangeables.botPlay || PlayState.loadRep ? " | " : "") : "") +								// 	NPS
          (!PlayStateChangeables.botPlay || PlayState.loadRep ? "Score:" + (Conductor.safeFrames != 10 ? score + " (" + scoreDef + ")" : "" + score) + 		// Score
          (FlxG.save.data.accuracyDisplay ?																						// Accuracy Toggle
-         " | Combo Breaks:" + PlayState.misses + 																				// 	Misses/Combo Breaks
-         " | Accuracy:" + (PlayStateChangeables.botPlay && !PlayState.loadRep ? "N/A" : HelperFunctions.truncateFloat(accuracy, 2) + " %") +  				// 	Accuracy
+         " | -" + PlayState.misses + 																				// 	Misses/Combo Breaks
+         " | Accuracy: " + (PlayStateChangeables.botPlay && !PlayState.loadRep ? "N/A" : HelperFunctions.truncateFloat(accuracy, 3) + " %") +  				// 	Accuracy
          " | " + GenerateLetterRank(accuracy) : "") : ""); 																		// 	Letter Rank
     }
 

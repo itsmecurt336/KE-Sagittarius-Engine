@@ -887,16 +887,17 @@ class PlayState extends MusicBeatState
 		add(healthBar);
 
 		// Add Kade Engine watermark
-		kadeEngineWatermark = new FlxText(4, healthBarBG.y + 50, 0, (Main.watermarks ? "SE " + MainMenuState.kadeEngineVer : ""), 16);
+		kadeEngineWatermark = new FlxText(4, healthBarBG.y + 50, 0, (Main.watermarks ? "SE " + MainMenuState.kadeEngineVer : "FNF 0.2.7.1"), 16);
 		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		kadeEngineWatermark.scrollFactor.set();
 		add(kadeEngineWatermark);
 		
 		if (FlxG.save.data.songPosition == false)
-			nameofSong = new FlxText(4, 10, 0, SONG.song + " (" + CoolUtil.difficultyFromInt(storyDifficulty) + ")", 16);
+			nameofSong = new FlxText(4, 20, 0, SONG.song + " (" + CoolUtil.difficultyFromInt(storyDifficulty) + ")", 16);
 			nameofSong.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			nameofSong.scrollFactor.set(); // Note to self: check your edits and make sure that lime is able to build windows before committing to stablefaolkfokaefoqawr
 			nameofSong.screenCenter(X);
+			nameofSong.cameras = [camHUD];
 			add(nameofSong);
 			
 
@@ -2926,6 +2927,7 @@ class PlayState extends MusicBeatState
 						{
 							var singData:Int = Std.int(Math.abs(daNote.noteData));
 							dad.playAnim('sing' + dataSuffix[singData] + altAnim, true);
+							
 
 							if (FlxG.save.data.cpuStrums)
 							{
@@ -2960,6 +2962,8 @@ class PlayState extends MusicBeatState
 					{
 						var singData:Int = Std.int(Math.abs(daNote.noteData));
 						dad.playAnim('sing' + dataSuffix[singData] + altAnim, true);
+						if (health > 0.25)
+							health -= 0.02;
 
 						if (FlxG.save.data.cpuStrums)
 						{
@@ -3540,7 +3544,7 @@ class PlayState extends MusicBeatState
 				rating.y = FlxG.save.data.changedHitY;
 			}
 			rating.acceleration.y = 550;
-			rating.velocity.y -= FlxG.random.int(140, 175);
+			rating.velocity.y -= FlxG.random.int(140, 170);
 			rating.velocity.x -= FlxG.random.int(0, 10);
 
 			var msTiming = HelperFunctions.truncateFloat(noteDiff / songMultiplier, 3);

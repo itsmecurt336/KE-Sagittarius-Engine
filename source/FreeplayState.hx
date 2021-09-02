@@ -34,6 +34,7 @@ class FreeplayState extends MusicBeatState
 	var selector:FlxText;
 
 	public static var rate:Float = 1.0;
+	public static var ratePercent:Float = 100;
 
 	public static var curSelected:Int = 0;
 	public static var curDifficulty:Int = 1;
